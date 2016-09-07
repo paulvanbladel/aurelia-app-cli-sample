@@ -36,11 +36,13 @@
     "server:dev:hmr": "npm run server:dev -- --hot",
     "server:prod": "http-server dist --cors",
     "webpack": "cross-env ./node_modules/.bin/webpack",
-    "webpack-dev-server": "cross-env ./node_modules/.bin/webpack-dev-server"
+    "webpack-dev-server": "cross-env ./node_modules/.bin/webpack-dev-server",
+    "deploy-gh-pages": "gh-pages -d dist"
+
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/paulvanbladel/aurelia-app-cli-sample.git" 
+    "url": "git+ssh://git@github.com/paulvanbladel/aurelia-app-cli-sample.git"
   },
   "keywords": [
     "aurelia",
@@ -50,7 +52,6 @@
   ],
   "license": "CC0-1.0",
   "author": "Paul Van Bladel  (http://blog.opinionatedapps.com/)",
- 
   "bugs": {
     "url": "https://github.com/paulvanbladel/aurelia-app-cli-sample/issues"
   },
@@ -109,6 +110,7 @@
     "babel-register": "^6.11.6",
     "concurrently": "^2.2.0",
     "cross-env": "^2.0.0",
+    "gh-pages": "^0.11.0",
     "http-server": "^0.9.0",
     "jasmine-core": "^2.4.1",
     "karma": "^1.1.2",
