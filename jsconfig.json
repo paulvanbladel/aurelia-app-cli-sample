@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es2015",
+    "target": "ES6",
+    "module": "amd",
     "experimentalDecorators": true
-  },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "release"
-  ]
+  }
 }

@@ -5,11 +5,11 @@
 
 ## How pushing a webpack based aurelia SPA to gh-pages?
 
-npm i gh-pages --save-dev
-create npm task for deploying to gh-pages
-update webpack.config.js: 
-  publicPath
-  base Url
+* npm i gh-pages --save-dev
+* create npm task for deploying to gh-pages
+* update webpack.config.js: 
+  *  publicPath
+  *  base Url
   
 
 ## Getting started
