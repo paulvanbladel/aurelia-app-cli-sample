@@ -1,4 +1,9 @@
-node_modules
+#node_modules
+#not ignoring the aurelia-app-cli folder
+!node_modules/
+node_modules/*
+!node_modules/aurelia-app-cli/
+
 .DS_STORE
 npm-debug.log*
 /dist
