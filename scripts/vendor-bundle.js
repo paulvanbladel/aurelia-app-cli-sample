@@ -4225,22 +4225,204 @@ K(require)||(w=require,require=void 0);g=requirejs=function(b,c,d,m){var r,q="_"
 0),importScripts(d),b.completeLoad(c)}catch(q){b.onError(F("importscripts","importScripts failed for "+c+" at "+d,q,[c]))}};E&&!w.skipDataMain&&X(document.getElementsByTagName("script"),function(b){C||(C=b.parentNode);if(O=b.getAttribute("data-main"))return u=O,w.baseUrl||-1!==u.indexOf("!")||(I=u.split("/"),u=I.pop(),T=I.length?I.join("/")+"/":"./",w.baseUrl=T),u=u.replace(U,""),g.jsExtRegExp.test(u)&&(u=O),w.deps=w.deps?w.deps.concat(u):[u],!0});define=function(b,c,d){var e,g;"string"!==typeof b&&
 (d=c,c=b,b=null);L(c)||(d=c,c=null);!c&&K(d)&&(c=[],d.length&&(d.toString().replace(qa,ka).replace(ra,function(b,d){c.push(d)}),c=(1===d.length?["require"]:["require","exports","module"]).concat(c)));S&&(e=P||pa())&&(b||(b=e.getAttribute("data-requiremodule")),g=J[e.getAttribute("data-requirecontext")]);g?(g.defQueue.push([b,c,d]),g.defQueueMap[b]=!0):V.push([b,c,d])};define.amd={jQuery:!0};g.exec=function(b){return eval(b)};g(w)}})(this);
 
-requirejs.config({"baseUrl":"src/","paths":{"text":"../scripts/text","aurelia-binding":"../node_modules\\aurelia-binding\\dist\\amd\\aurelia-binding","aurelia-bootstrapper":"../node_modules\\aurelia-bootstrapper\\dist\\amd\\aurelia-bootstrapper","aurelia-dependency-injection":"../node_modules\\aurelia-dependency-injection\\dist\\amd\\aurelia-dependency-injection","aurelia-event-aggregator":"../node_modules\\aurelia-event-aggregator\\dist\\amd\\aurelia-event-aggregator","aurelia-fetch-client":"../node_modules\\aurelia-fetch-client\\dist\\amd\\aurelia-fetch-client","aurelia-framework":"../node_modules\\aurelia-framework\\dist\\amd\\aurelia-framework","aurelia-history":"../node_modules\\aurelia-history\\dist\\amd\\aurelia-history","aurelia-history-browser":"../node_modules\\aurelia-history-browser\\dist\\amd\\aurelia-history-browser","aurelia-loader":"../node_modules\\aurelia-loader\\dist\\amd\\aurelia-loader","aurelia-loader-default":"../node_modules\\aurelia-loader-default\\dist\\amd\\aurelia-loader-default","aurelia-logging":"../node_modules\\aurelia-logging\\dist\\amd\\aurelia-logging","aurelia-logging-console":"../node_modules\\aurelia-logging-console\\dist\\amd\\aurelia-logging-console","aurelia-metadata":"../node_modules\\aurelia-metadata\\dist\\amd\\aurelia-metadata","aurelia-pal":"../node_modules\\aurelia-pal\\dist\\amd\\aurelia-pal","aurelia-pal-browser":"../node_modules\\aurelia-pal-browser\\dist\\amd\\aurelia-pal-browser","aurelia-path":"../node_modules\\aurelia-path\\dist\\amd\\aurelia-path","aurelia-polyfills":"../node_modules\\aurelia-polyfills\\dist\\amd\\aurelia-polyfills","aurelia-route-recognizer":"../node_modules\\aurelia-route-recognizer\\dist\\amd\\aurelia-route-recognizer","aurelia-router":"../node_modules\\aurelia-router\\dist\\amd\\aurelia-router","aurelia-task-queue":"../node_modules\\aurelia-task-queue\\dist\\amd\\aurelia-task-queue","aurelia-templating":"../node_modules\\aurelia-templating\\dist\\amd\\aurelia-templating","aurelia-templating-binding":"../node_modules\\aurelia-templating-binding\\dist\\amd\\aurelia-templating-binding","jquery":"../node_modules\\jquery\\dist\\jquery","app-bundle":"../scripts/app-bundle"},"packages":[{"name":"aurelia-app-cli","location":"../node_modules/aurelia-app-cli/dist/amd","main":"index"},{"name":"aurelia-templating-resources","location":"../node_modules/aurelia-templating-resources/dist/amd","main":"aurelia-templating-resources"},{"name":"aurelia-templating-router","location":"../node_modules/aurelia-templating-router/dist/amd","main":"aurelia-templating-router"},{"name":"aurelia-testing","location":"../node_modules/aurelia-testing/dist/amd","main":"aurelia-testing"},{"name":"bootstrap","location":"../node_modules/bootstrap/dist","main":"js/bootstrap.min"}],"stubModules":["text"],"shim":{"bootstrap":{"deps":["jquery"],"exports":"$"}},"bundles":{"app-bundle":["app","blur-image","child-router","environment","main","users","welcome","Commands/Command1","Commands/github-user-info","Commands/index","Commands/Sum","resources/index","styles","nav-bar"]}});
+requirejs.config({"baseUrl":"src/","paths":{"text":"../scripts/text","aurelia-binding":"../node_modules\\aurelia-binding\\dist\\amd\\aurelia-binding","aurelia-bootstrapper":"../node_modules\\aurelia-bootstrapper\\dist\\amd\\aurelia-bootstrapper","aurelia-dependency-injection":"../node_modules\\aurelia-dependency-injection\\dist\\amd\\aurelia-dependency-injection","aurelia-event-aggregator":"../node_modules\\aurelia-event-aggregator\\dist\\amd\\aurelia-event-aggregator","aurelia-fetch-client":"../node_modules\\aurelia-fetch-client\\dist\\amd\\aurelia-fetch-client","aurelia-framework":"../node_modules\\aurelia-framework\\dist\\amd\\aurelia-framework","aurelia-history":"../node_modules\\aurelia-history\\dist\\amd\\aurelia-history","aurelia-history-browser":"../node_modules\\aurelia-history-browser\\dist\\amd\\aurelia-history-browser","aurelia-loader":"../node_modules\\aurelia-loader\\dist\\amd\\aurelia-loader","aurelia-loader-default":"../node_modules\\aurelia-loader-default\\dist\\amd\\aurelia-loader-default","aurelia-logging":"../node_modules\\aurelia-logging\\dist\\amd\\aurelia-logging","aurelia-logging-console":"../node_modules\\aurelia-logging-console\\dist\\amd\\aurelia-logging-console","aurelia-pal":"../node_modules\\aurelia-pal\\dist\\amd\\aurelia-pal","aurelia-metadata":"../node_modules\\aurelia-metadata\\dist\\amd\\aurelia-metadata","aurelia-pal-browser":"../node_modules\\aurelia-pal-browser\\dist\\amd\\aurelia-pal-browser","aurelia-path":"../node_modules\\aurelia-path\\dist\\amd\\aurelia-path","aurelia-polyfills":"../node_modules\\aurelia-polyfills\\dist\\amd\\aurelia-polyfills","aurelia-route-recognizer":"../node_modules\\aurelia-route-recognizer\\dist\\amd\\aurelia-route-recognizer","aurelia-router":"../node_modules\\aurelia-router\\dist\\amd\\aurelia-router","aurelia-task-queue":"../node_modules\\aurelia-task-queue\\dist\\amd\\aurelia-task-queue","aurelia-templating":"../node_modules\\aurelia-templating\\dist\\amd\\aurelia-templating","aurelia-templating-binding":"../node_modules\\aurelia-templating-binding\\dist\\amd\\aurelia-templating-binding","jquery":"../node_modules\\jquery\\dist\\jquery","app-bundle":"../scripts/app-bundle"},"packages":[{"name":"aurelia-app-cli","location":"../node_modules/aurelia-app-cli/dist/amd","main":"index"},{"name":"aurelia-templating-resources","location":"../node_modules/aurelia-templating-resources/dist/amd","main":"aurelia-templating-resources"},{"name":"aurelia-templating-router","location":"../node_modules/aurelia-templating-router/dist/amd","main":"aurelia-templating-router"},{"name":"aurelia-testing","location":"../node_modules/aurelia-testing/dist/amd","main":"aurelia-testing"},{"name":"bootstrap","location":"../node_modules/bootstrap/dist","main":"js/bootstrap.min"}],"stubModules":["text"],"shim":{"bootstrap":{"deps":["jquery"],"exports":"$"}},"bundles":{"app-bundle":["app","blur-image","child-router","environment","main","users","welcome","Commands/Command1","Commands/github-user-info","Commands/index","Commands/Sum","resources/index","styles","nav-bar"]}});
 define('text',{});
 define('text!aurelia-app-cli/app-console.css', ['module'], function(module) { module.exports = "/*Font\r\n-----------------------------------------------------*/\r\n.webcli, .webcli-input\r\n{\r\n    font:20px/20px 'Lucida Console', 'Consolas', 'Courier New' !important;\r\n}\r\n\r\n/*Control\r\n-----------------------------------------------------*/\r\n.webcli\r\n{\r\n    background: rgba(0, 0, 0, .7);\r\n    height: 300px;\r\n    position:absolute; bottom:0; left:0; right:0;\r\n    padding:5px;\r\n    border:solid 1px rgba(255, 255, 255, .5);\r\n    box-shadow:0 0 3px #000, 0 0 8px #000 inset;\r\n    overflow: auto;\r\n}\r\n\r\n\r\n/*Input\r\n-----------------------------------------------------*/\r\n.webcli-input-true\r\n{\r\n    display:block; width:100%;\r\n    background: transparent; border:none;\r\n    color:#8AE234;\r\n    margin:0; padding:0;\r\n    outline:none; /*Chrome*/\r\n}\r\n\r\n.webcli-input-false\r\n{\r\n    display:none;\r\n   \r\n}\r\n\r\n.webcli-input::-ms-clear {display: none; } /*Clear button in Edge*/\r\n\r\n\r\n/*Output text\r\n-----------------------------------------------------*/\r\n.webcli-cmd   {color:#AAA;}\r\n.webcli-error {color:#F00;}\r\n.webcli-ok    {color:#0FF;}\r\n\r\n/*Busy animation\r\n-----------------------------------------------------*/\r\n.webcli-busy-true\r\n{\r\n    width:24px; height:24px;\r\n    border-radius: 50%;\r\n    display:inline-block;\r\n    border-top: 2px solid #03ade0;\r\n    border-right: 2px solid transparent;\r\n    margin: 4px 0;\r\n    animation: spin .6s linear infinite;\r\n}\r\n\r\n.webcli-busy-false\r\n{\r\n    display:none;\r\n}\r\n\r\n@keyframes spin\r\n{\r\n    to { transform: rotate(360deg); }\r\n}\r\n\r\n\r\n\r\n"; });
 define('text!aurelia-app-cli/app-console.html', ['module'], function(module) { module.exports = "<template>\r\n    <require from=\"./app-console.css\"></require>\r\n\r\n    <div class=\"webcli\">\r\n        <div repeat.for=\"item of history\">\r\n            <div class=\"webcli-cmd\">${item.input}\r\n                <span class=\"webcli-busy-${item.isBusy}\"></span>\r\n            </div>\r\n            <div class=\"webcli-${item.status}\" textcontent=\"${item.output}\" if.bind=\"isText(item)\"></div>\r\n            <div class=\"webcli-${item.status}\" if.bind=\"isHtml(item)\" innerhtml.bind=\"item.output\"> </div>\r\n        </div>\r\n        <input type=\"text\" autofocus value.bind=\"newCommandInput\" class=\"webcli-input-${!isBusy}\" keyup.delegate=\"onKeyUp($event)\"\r\n            spellcheck=\"false\">\r\n\r\n    </div>\r\n</template>"; });
-define('aurelia-app-cli/index',['exports'], function (exports) {
+define('aurelia-app-cli/index',['exports', './app-console-configuration'], function (exports, _appConsoleConfiguration) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
   exports.configure = configure;
-  function configure(config) {
-    config.globalResources('./app-console');
+  function configure(aurelia, callback) {
+    var config = new _appConsoleConfiguration.AppConsoleConfiguration(aurelia);
+
+    if (typeof callback === 'function') {
+      callback(config);
+    } else {}
+
+    config._apply();
   }
 });;define('aurelia-app-cli', ['aurelia-app-cli/index'], function (main) { return main; });
 
+define('aurelia-app-cli/app-console-configuration',['exports', './app-console-options', './BuiltInCommands/index'], function (exports, _appConsoleOptions, _index) {
+    'use strict';
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.AppConsoleConfiguration = undefined;
+
+    var builtInCommands = _interopRequireWildcard(_index);
+
+    function _interopRequireWildcard(obj) {
+        if (obj && obj.__esModule) {
+            return obj;
+        } else {
+            var newObj = {};
+
+            if (obj != null) {
+                for (var key in obj) {
+                    if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+                }
+            }
+
+            newObj.default = obj;
+            return newObj;
+        }
+    }
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    var AppConsoleConfiguration = exports.AppConsoleConfiguration = function () {
+        function AppConsoleConfiguration(aurelia) {
+            _classCallCheck(this, AppConsoleConfiguration);
+
+            this.aurelia = aurelia;
+            this.settings = _appConsoleOptions.appConsoleOptions;
+            this.settings.commands = builtInCommands;
+        }
+
+        AppConsoleConfiguration.prototype.attachCustomCommands = function attachCustomCommands(customCommands) {
+            this.settings.commands = Object.assign(this.settings.commands, customCommands || {});
+            return this;
+        };
+
+        AppConsoleConfiguration.prototype._apply = function _apply() {
+            var _this = this;
+
+            Reflect.ownKeys(this.settings.commands).forEach(function (a) {
+                if (a != "__esModule") {
+                    _this.aurelia.transient("Command", _this.settings.commands[a]);
+                }
+            });
+
+            this.aurelia.globalResources('./app-console');
+        };
+
+        return AppConsoleConfiguration;
+    }();
+});
+define('aurelia-app-cli/app-console-options',['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  var appConsoleOptions = exports.appConsoleOptions = {
+    commands: {},
+    option1: 'dag jos',
+    option2: 1000
+  };
+});
+define('aurelia-app-cli/BuiltInCommands/index',['exports', './clear-screen', './help'], function (exports, _clearScreen, _help) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'Cls', {
+    enumerable: true,
+    get: function () {
+      return _clearScreen.Cls;
+    }
+  });
+  Object.defineProperty(exports, 'Help', {
+    enumerable: true,
+    get: function () {
+      return _help.Help;
+    }
+  });
+});
+define('aurelia-app-cli/BuiltInCommands/clear-screen',["exports", "../app-console-options"], function (exports, _appConsoleOptions) {
+    "use strict";
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.Cls = undefined;
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    var Cls = exports.Cls = function () {
+        function Cls() {
+            _classCallCheck(this, Cls);
+        }
+
+        Cls.prototype.ResolveCommandLineArgs = function ResolveCommandLineArgs(args) {};
+
+        Cls.prototype.UpdateAppCommand = function UpdateAppCommand(command) {};
+
+        Cls.prototype.help = function help() {
+            return "clears the screen";
+        };
+
+        Cls.prototype.Execute = function Execute() {};
+
+        return Cls;
+    }();
+});
+define('aurelia-app-cli/BuiltInCommands/help',["exports", "../app-console-options"], function (exports, _appConsoleOptions) {
+    "use strict";
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.Help = undefined;
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    var Help = exports.Help = function () {
+        function Help() {
+            _classCallCheck(this, Help);
+        }
+
+        Help.prototype.ResolveCommandLineArgs = function ResolveCommandLineArgs(args) {};
+
+        Help.prototype.UpdateAppCommand = function UpdateAppCommand(command) {
+            command.outputType = "html";
+        };
+
+        Help.prototype.help = function help() {
+            return "gets help²";
+        };
+
+        Help.prototype.Execute = function Execute() {
+            return new Promise(function (resolve, reject) {
+                setTimeout(function () {
+
+                    var result = [];
+
+                    Reflect.ownKeys(_appConsoleOptions.appConsoleOptions.commands).forEach(function (a) {
+                        if (a != "__esModule") {
+                            var helpText = a + " : " + _appConsoleOptions.appConsoleOptions.commands[a].prototype.help();
+                            result.push("<p>" + helpText + "</p>");
+                        }
+                    });
+
+                    var returnValue = result.join("\n");
+                    resolve(returnValue);
+                }, 2000);
+            });
+        };
+
+        return Help;
+    }();
+});
 define('aurelia-binding',['exports', 'aurelia-logging', 'aurelia-pal', 'aurelia-task-queue', 'aurelia-metadata'], function (exports, _aureliaLogging, _aureliaPal, _aureliaTaskQueue, _aureliaMetadata) {
   'use strict';
 
@@ -12390,6 +12572,87 @@ define('aurelia-logging-console',['exports', 'aurelia-logging'], function (expor
     return ConsoleAppender;
   }();
 });
+define('aurelia-pal',['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.AggregateError = AggregateError;
+  exports.initializePAL = initializePAL;
+  function AggregateError(message, innerError, skipIfAlreadyAggregate) {
+    if (innerError) {
+      if (innerError.innerError && skipIfAlreadyAggregate) {
+        return innerError;
+      }
+
+      var separator = '\n------------------------------------------------\n';
+
+      message += separator + 'Inner Error:\n';
+
+      if (typeof innerError === 'string') {
+        message += 'Message: ' + innerError;
+      } else {
+        if (innerError.message) {
+          message += 'Message: ' + innerError.message;
+        } else {
+          message += 'Unknown Inner Error Type. Displaying Inner Error as JSON:\n ' + JSON.stringify(innerError, null, '  ');
+        }
+
+        if (innerError.stack) {
+          message += '\nInner Error Stack:\n' + innerError.stack;
+          message += '\nEnd Inner Error Stack';
+        }
+      }
+
+      message += separator;
+    }
+
+    var e = new Error(message);
+    if (innerError) {
+      e.innerError = innerError;
+    }
+
+    return e;
+  }
+
+  var FEATURE = exports.FEATURE = {};
+
+  var PLATFORM = exports.PLATFORM = {
+    noop: function noop() {},
+    eachModule: function eachModule() {}
+  };
+
+  PLATFORM.global = function () {
+    if (typeof self !== 'undefined') {
+      return self;
+    }
+
+    if (typeof global !== 'undefined') {
+      return global;
+    }
+
+    return new Function('return this')();
+  }();
+
+  var DOM = exports.DOM = {};
+
+  function initializePAL(callback) {
+    if (typeof Object.getPropertyDescriptor !== 'function') {
+      Object.getPropertyDescriptor = function (subject, name) {
+        var pd = Object.getOwnPropertyDescriptor(subject, name);
+        var proto = Object.getPrototypeOf(subject);
+        while (typeof pd === 'undefined' && proto !== null) {
+          pd = Object.getOwnPropertyDescriptor(proto, name);
+          proto = Object.getPrototypeOf(proto);
+        }
+        return pd;
+      };
+    }
+
+    callback(PLATFORM, FEATURE, DOM);
+  }
+});
 define('aurelia-metadata',['exports', 'aurelia-pal'], function (exports, _aureliaPal) {
   'use strict';
 
@@ -12661,87 +12924,6 @@ define('aurelia-metadata',['exports', 'aurelia-pal'], function (exports, _aureli
 
     return result;
   };
-});
-define('aurelia-pal',['exports'], function (exports) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.AggregateError = AggregateError;
-  exports.initializePAL = initializePAL;
-  function AggregateError(message, innerError, skipIfAlreadyAggregate) {
-    if (innerError) {
-      if (innerError.innerError && skipIfAlreadyAggregate) {
-        return innerError;
-      }
-
-      var separator = '\n------------------------------------------------\n';
-
-      message += separator + 'Inner Error:\n';
-
-      if (typeof innerError === 'string') {
-        message += 'Message: ' + innerError;
-      } else {
-        if (innerError.message) {
-          message += 'Message: ' + innerError.message;
-        } else {
-          message += 'Unknown Inner Error Type. Displaying Inner Error as JSON:\n ' + JSON.stringify(innerError, null, '  ');
-        }
-
-        if (innerError.stack) {
-          message += '\nInner Error Stack:\n' + innerError.stack;
-          message += '\nEnd Inner Error Stack';
-        }
-      }
-
-      message += separator;
-    }
-
-    var e = new Error(message);
-    if (innerError) {
-      e.innerError = innerError;
-    }
-
-    return e;
-  }
-
-  var FEATURE = exports.FEATURE = {};
-
-  var PLATFORM = exports.PLATFORM = {
-    noop: function noop() {},
-    eachModule: function eachModule() {}
-  };
-
-  PLATFORM.global = function () {
-    if (typeof self !== 'undefined') {
-      return self;
-    }
-
-    if (typeof global !== 'undefined') {
-      return global;
-    }
-
-    return new Function('return this')();
-  }();
-
-  var DOM = exports.DOM = {};
-
-  function initializePAL(callback) {
-    if (typeof Object.getPropertyDescriptor !== 'function') {
-      Object.getPropertyDescriptor = function (subject, name) {
-        var pd = Object.getOwnPropertyDescriptor(subject, name);
-        var proto = Object.getPrototypeOf(subject);
-        while (typeof pd === 'undefined' && proto !== null) {
-          pd = Object.getOwnPropertyDescriptor(proto, name);
-          proto = Object.getPrototypeOf(proto);
-        }
-        return pd;
-      };
-    }
-
-    callback(PLATFORM, FEATURE, DOM);
-  }
 });
 define('aurelia-pal-browser',['exports', 'aurelia-pal'], function (exports, _aureliaPal) {
   'use strict';

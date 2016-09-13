@@ -2,9 +2,9 @@
 
 
 ## NOTHING TO SEE HERE YET, WORK IN PROGRESS
+### Sample app: https://paulvanbladel.github.io/aurelia-app-cli-sample
 
-## How pushing a webpack based aurelia SPA to gh-pages?
-
+## How pushing a webpack based aurelia SPA to gh-pages? (irrelevant: using aurelia-cli now)
 * npm i gh-pages --save-dev
 * create npm task for deploying to gh-pages
 * update webpack.config.js: 

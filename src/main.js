@@ -17,14 +17,16 @@ export function configure(aurelia) {
   aurelia.use
     .standardConfiguration()
     .feature('resources')
-    .plugin('aurelia-app-cli');
+    .plugin('aurelia-app-cli', config => {
+      config.attachCustomCommands(commands);
+      config.settings.option1 = 'hi paul';
+    });
 
-debugger;
-Reflect.ownKeys(commands).forEach(a => {
-  if (a != "__esModule") {
-    aurelia.use.transient("Command", commands[a]);
-  }
-});
+  // Reflect.ownKeys(commands).forEach(a => {
+  //   if (a != "__esModule") {
+  //     aurelia.use.transient("Command", commands[a]);
+  //   }
+  // });
 
 
   if (environment.debug) {

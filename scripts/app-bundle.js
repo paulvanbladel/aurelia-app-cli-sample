@@ -399,13 +399,9 @@ define('main',['exports', './environment', './Commands/index'], function (export
   });
 
   function configure(aurelia) {
-    aurelia.use.standardConfiguration().feature('resources').plugin('aurelia-app-cli');
-
-    debugger;
-    Reflect.ownKeys(commands).forEach(function (a) {
-      if (a != "__esModule") {
-        aurelia.use.transient("Command", commands[a]);
-      }
+    aurelia.use.standardConfiguration().feature('resources').plugin('aurelia-app-cli', function (config) {
+      config.attachCustomCommands(commands);
+      config.settings.option1 = 'hi paul';
     });
 
     if (_environment2.default.debug) {
@@ -562,6 +558,10 @@ define('Commands/Command1',["exports"], function (exports) {
 
         Command1.prototype.UpdateAppCommand = function UpdateAppCommand() {};
 
+        Command1.prototype.help = function help() {
+            return "echoes some text";
+        };
+
         Command1.prototype.Execute = function Execute() {
             var _this = this;
 
@@ -571,7 +571,7 @@ define('Commands/Command1',["exports"], function (exports) {
                     if (_this.input === "xxx") {
                         reject("we are simulating an error here...");
                     }
-                    var returnValue = "response from promise for " + _this.input;
+                    var returnValue = "response from promise for " + String.fromCharCode(13) + _this.input;
                     resolve(returnValue);
                 }, 2000);
             });
@@ -602,6 +602,10 @@ define('Commands/github-user-info',['exports', 'aurelia-framework', 'aurelia-fet
 
             this.http = http;
         }
+
+        GitHubUserInfo.prototype.help = function help() {
+            return "gets github user profile picture based on github user name";
+        };
 
         GitHubUserInfo.prototype.ResolveCommandLineArgs = function ResolveCommandLineArgs(args) {
             this.username = args[1];
@@ -681,6 +685,10 @@ define('Commands/Sum',["exports"], function (exports) {
 
         Sum.prototype.UpdateAppCommand = function UpdateAppCommand() {};
 
+        Sum.prototype.help = function help() {
+            return "adds two integers";
+        };
+
         Sum.prototype.Execute = function Execute() {
             var _this = this;
 
@@ -705,7 +713,7 @@ define('resources/index',["exports"], function (exports) {
   exports.configure = configure;
   function configure(config) {}
 });
-define('text!app.html', ['module'], function(module) { module.exports = "<template>\n   <require from=\"bootstrap/css/bootstrap.css\"></require>\n  <require from=\"./styles.css\"></require>\n  <require from=\"./nav-bar.html\"></require>\n  \n  <nav-bar router.bind=\"router\"></nav-bar>\n\n  <div class=\"page-host\">\n    <router-view></router-view>\n    <app-console></app-console>\n  </div>\n</template>\n"; });
+define('text!app.html', ['module'], function(module) { module.exports = "<template>\r\n   <require from=\"bootstrap/css/bootstrap.css\"></require>\r\n  <require from=\"./styles.css\"></require>\r\n  <require from=\"./nav-bar.html\"></require>\r\n  \r\n  <nav-bar router.bind=\"router\"></nav-bar>\r\n\r\n  <div class=\"page-host\">\r\n    <router-view></router-view>\r\n    <app-console></app-console>\r\n  </div>\r\n</template>\r\n"; });
 define('text!styles.css', ['module'], function(module) { module.exports = "body {\r\n  margin: 0;\r\n}\r\n\r\n.splash {\r\n  text-align: center;\r\n  margin: 10% 0 0 0;\r\n  box-sizing: border-box;\r\n}\r\n\r\n.splash .message {\r\n  font-size: 72px;\r\n  line-height: 72px;\r\n  text-shadow: rgba(0, 0, 0, 0.5) 0 0 15px;\r\n  text-transform: uppercase;\r\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\r\n}\r\n\r\n.splash .fa-spinner {\r\n  text-align: center;\r\n  display: inline-block;\r\n  font-size: 72px;\r\n  margin-top: 50px;\r\n}\r\n\r\n.page-host {\r\n  position: absolute;\r\n  left: 0;\r\n  right: 0;\r\n  top: 50px;\r\n  bottom: 0;\r\n  overflow-x: hidden;\r\n  overflow-y: auto;\r\n}\r\n\r\n@media print {\r\n  .page-host {\r\n    position: absolute;\r\n    left: 10px;\r\n    right: 0;\r\n    top: 50px;\r\n    bottom: 0;\r\n    overflow-y: inherit;\r\n    overflow-x: inherit;\r\n  }\r\n}\r\n\r\nsection {\r\n  margin: 0 20px;\r\n}\r\n\r\n.navbar-nav li.loader {\r\n  margin: 12px 24px 0 6px;\r\n}\r\n\r\n.pictureDetail {\r\n  max-width: 425px;\r\n}\r\n\r\n/* animate page transitions */\r\nsection.au-enter-active {\r\n  -webkit-animation: fadeInRight 1s;\r\n  animation: fadeInRight 1s;\r\n}\r\n\r\ndiv.au-stagger {\r\n  /* 50ms will be applied between each successive enter operation */\r\n  -webkit-animation-delay: 50ms;\r\n  animation-delay: 50ms;\r\n}\r\n\r\n.card-container.au-enter {\r\n  opacity: 0 !important;\r\n}\r\n\r\n.card-container.au-enter-active {\r\n  -webkit-animation: fadeIn 2s;\r\n  animation: fadeIn 2s;\r\n}\r\n\r\n.card {\r\n  overflow: hidden;\r\n  position: relative;\r\n  border: 1px solid #CCC;\r\n  border-radius: 8px;\r\n  text-align: center;\r\n  padding: 0;\r\n  background-color: #337ab7;\r\n  color: rgb(136, 172, 217);\r\n  margin-bottom: 32px;\r\n  box-shadow: 0 0 5px rgba(0, 0, 0, .5);\r\n}\r\n\r\n.card .content {\r\n  margin-top: 10px;\r\n}\r\n\r\n.card .content .name {\r\n  color: white;\r\n  text-shadow: 0 0 6px rgba(0, 0, 0, .5);\r\n  font-size: 18px;\r\n}\r\n\r\n.card .header-bg {\r\n  /* This stretches the canvas across the entire hero unit */\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 70px;\r\n  border-bottom: 1px #FFF solid;\r\n  border-radius: 6px 6px 0 0;\r\n}\r\n\r\n.card .avatar {\r\n  position: relative;\r\n  margin-top: 15px;\r\n  z-index: 100;\r\n}\r\n\r\n.card .avatar img {\r\n  width: 100px;\r\n  height: 100px;\r\n  -webkit-border-radius: 50%;\r\n  -moz-border-radius: 50%;\r\n  border-radius: 50%;\r\n  border: 2px #FFF solid;\r\n}\r\n\r\n/* animation definitions */\r\n@-webkit-keyframes fadeInRight {\r\n  0% {\r\n    opacity: 0;\r\n    -webkit-transform: translate3d(100%, 0, 0);\r\n    transform: translate3d(100%, 0, 0)\r\n  }\r\n  100% {\r\n    opacity: 1;\r\n    -webkit-transform: none;\r\n    transform: none\r\n  }\r\n}\r\n\r\n@keyframes fadeInRight {\r\n  0% {\r\n    opacity: 0;\r\n    -webkit-transform: translate3d(100%, 0, 0);\r\n    -ms-transform: translate3d(100%, 0, 0);\r\n    transform: translate3d(100%, 0, 0)\r\n  }\r\n  100% {\r\n    opacity: 1;\r\n    -webkit-transform: none;\r\n    -ms-transform: none;\r\n    transform: none\r\n  }\r\n}\r\n\r\n@-webkit-keyframes fadeIn {\r\n  0% {\r\n    opacity: 0;\r\n  }\r\n  100% {\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n@keyframes fadeIn {\r\n  0% {\r\n    opacity: 0;\r\n  }\r\n  100% {\r\n    opacity: 1;\r\n  }\r\n}\r\n"; });
 define('text!child-router.html', ['module'], function(module) { module.exports = "<template>\r\n  <section class=\"au-animate\">\r\n    <h2>${heading}</h2>\r\n    <div>\r\n      <div class=\"col-md-2\">\r\n        <ul class=\"well nav nav-pills nav-stacked\">\r\n          <li repeat.for=\"row of router.navigation\" class=\"${row.isActive ? 'active' : ''}\">\r\n            <a href.bind=\"row.href\">${row.title}</a>\r\n          </li>\r\n        </ul>\r\n      </div>\r\n      <div class=\"col-md-10\" style=\"padding: 0\">\r\n        <router-view></router-view>\r\n      </div>\r\n    </div>\r\n  </section>\r\n</template>\r\n"; });
 define('text!nav-bar.html', ['module'], function(module) { module.exports = "<template bindable=\"router\">\r\n  <nav class=\"navbar navbar-default navbar-fixed-top\" role=\"navigation\">\r\n    <div class=\"navbar-header\">\r\n      <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#skeleton-navigation-navbar-collapse\">\r\n        <span class=\"sr-only\">Toggle Navigation</span>\r\n        <span class=\"icon-bar\"></span>\r\n        <span class=\"icon-bar\"></span>\r\n        <span class=\"icon-bar\"></span>\r\n      </button>\r\n      <a class=\"navbar-brand\" href=\"#\">\r\n        <i class=\"fa fa-home\"></i>\r\n        <span>${router.title}</span>\r\n      </a>\r\n    </div>\r\n\r\n    <div class=\"collapse navbar-collapse\" id=\"skeleton-navigation-navbar-collapse\">\r\n      <ul class=\"nav navbar-nav\">\r\n        <li repeat.for=\"row of router.navigation\" class=\"${row.isActive ? 'active' : ''}\">\r\n          <a data-toggle=\"collapse\" data-target=\"#skeleton-navigation-navbar-collapse.in\" href.bind=\"row.href\">${row.title}</a>\r\n        </li>\r\n      </ul>\r\n\r\n      <ul class=\"nav navbar-nav navbar-right\">\r\n        <li class=\"loader\" if.bind=\"router.isNavigating\">\r\n          <i class=\"fa fa-spinner fa-spin fa-2x\"></i>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n  </nav>\r\n</template>\r\n"; });
