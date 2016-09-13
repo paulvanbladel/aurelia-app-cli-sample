@@ -14,7 +14,9 @@ export class Sum {
 
     }
 
-
+    help(){
+        return "adds two integers";
+    }
     Execute() {
         return new Promise((resolve, reject) => {
             setTimeout(() => {

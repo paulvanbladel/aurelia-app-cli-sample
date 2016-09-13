@@ -9,6 +9,9 @@ export class GitHubUserInfo {
         this.http = http;
     }
 
+    help(){
+        return "gets github user profile picture based on github user name";
+    }
     ResolveCommandLineArgs(args) {
         this.username = args[1];
     }
