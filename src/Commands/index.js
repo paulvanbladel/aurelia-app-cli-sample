@@ -1,3 +1,3 @@
-export {Command1} from './Command1';
+export {EchoMe} from './echo-me';
 export {Sum} from './Sum';
 export {GitHubUserInfo} from './github-user-info';

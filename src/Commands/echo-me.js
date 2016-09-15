@@ -1,4 +1,4 @@
-export class Command1 {
+export class EchoMe {
 
 
     ResolveCommandLineArgs(args) {
