@@ -18,7 +18,7 @@ define('app',['exports'], function (exports) {
 
     App.prototype.configureRouter = function configureRouter(config, router) {
       config.title = 'Aurelia';
-      config.map([{ route: ['', 'welcome'], name: 'welcome', moduleId: './welcome', nav: true, title: 'Welcome' }, { route: 'users', name: 'users', moduleId: './users', nav: true, title: 'Github Users' }, { route: 'child-router', name: 'child-router', moduleId: './child-router', nav: true, title: 'Child Router' }]);
+      config.map([{ route: ['', 'cli-introitus'], name: 'cli-introitus', moduleId: './cli-introitus', nav: true, title: 'cli-introitus' }, { route: 'welcome', name: 'welcome', moduleId: './welcome', nav: true, title: 'Welcome' }, { route: 'child-router', name: 'child-router', moduleId: './child-router', nav: true, title: 'Child Router' }]);
 
       this.router = router;
     };
@@ -346,6 +346,23 @@ define('child-router',['exports'], function (exports) {
     return ChildRouter;
   }();
 });
+define('cli-introitus',["exports"], function (exports) {
+    "use strict";
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    var CliIntroitus = exports.CliIntroitus = function CliIntroitus() {
+        _classCallCheck(this, CliIntroitus);
+    };
+});
 define('environment',["exports"], function (exports) {
   "use strict";
 
@@ -416,49 +433,6 @@ define('main',['exports', './environment', './Commands/index'], function (export
       return aurelia.setRoot();
     });
   }
-});
-define('users',['exports', 'aurelia-framework', 'aurelia-fetch-client'], function (exports, _aureliaFramework, _aureliaFetchClient) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.Users = undefined;
-
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  }
-
-  var _dec, _class;
-
-  var Users = exports.Users = (_dec = (0, _aureliaFramework.inject)(_aureliaFetchClient.HttpClient), _dec(_class = function () {
-    function Users(http) {
-      _classCallCheck(this, Users);
-
-      this.heading = 'Github Users';
-      this.users = [];
-
-      http.configure(function (config) {
-        config.useStandardConfiguration().withBaseUrl('https://api.github.com/');
-      });
-
-      this.http = http;
-    }
-
-    Users.prototype.activate = function activate() {
-      var _this = this;
-
-      return this.http.fetch('users').then(function (response) {
-        return response.json();
-      }).then(function (users) {
-        return _this.users = users;
-      });
-    };
-
-    return Users;
-  }()) || _class);
 });
 define('welcome',['exports'], function (exports) {
   'use strict';
@@ -534,7 +508,7 @@ define('welcome',['exports'], function (exports) {
     return UpperValueConverter;
   }();
 });
-define('Commands/Command1',["exports"], function (exports) {
+define('Commands/echo-me',["exports"], function (exports) {
     "use strict";
 
     Object.defineProperty(exports, "__esModule", {
@@ -547,22 +521,22 @@ define('Commands/Command1',["exports"], function (exports) {
         }
     }
 
-    var Command1 = exports.Command1 = function () {
-        function Command1() {
-            _classCallCheck(this, Command1);
+    var EchoMe = exports.EchoMe = function () {
+        function EchoMe() {
+            _classCallCheck(this, EchoMe);
         }
 
-        Command1.prototype.ResolveCommandLineArgs = function ResolveCommandLineArgs(args) {
+        EchoMe.prototype.ResolveCommandLineArgs = function ResolveCommandLineArgs(args) {
             this.input = args[1];
         };
 
-        Command1.prototype.UpdateAppCommand = function UpdateAppCommand() {};
+        EchoMe.prototype.UpdateAppCommand = function UpdateAppCommand() {};
 
-        Command1.prototype.help = function help() {
+        EchoMe.prototype.help = function help() {
             return "echoes some text";
         };
 
-        Command1.prototype.Execute = function Execute() {
+        EchoMe.prototype.Execute = function Execute() {
             var _this = this;
 
             return new Promise(function (resolve, reject) {
@@ -577,7 +551,7 @@ define('Commands/Command1',["exports"], function (exports) {
             });
         };
 
-        return Command1;
+        return EchoMe;
     }();
 });
 define('Commands/github-user-info',['exports', 'aurelia-framework', 'aurelia-fetch-client'], function (exports, _aureliaFramework, _aureliaFetchClient) {
@@ -630,16 +604,16 @@ define('Commands/github-user-info',['exports', 'aurelia-framework', 'aurelia-fet
         return GitHubUserInfo;
     }()) || _class);
 });
-define('Commands/index',['exports', './Command1', './Sum', './github-user-info'], function (exports, _Command, _Sum, _githubUserInfo) {
+define('Commands/index',['exports', './echo-me', './Sum', './github-user-info'], function (exports, _echoMe, _Sum, _githubUserInfo) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  Object.defineProperty(exports, 'Command1', {
+  Object.defineProperty(exports, 'EchoMe', {
     enumerable: true,
     get: function () {
-      return _Command.Command1;
+      return _echoMe.EchoMe;
     }
   });
   Object.defineProperty(exports, 'Sum', {
@@ -716,7 +690,7 @@ define('resources/index',["exports"], function (exports) {
 define('text!app.html', ['module'], function(module) { module.exports = "<template>\r\n   <require from=\"bootstrap/css/bootstrap.css\"></require>\r\n  <require from=\"./styles.css\"></require>\r\n  <require from=\"./nav-bar.html\"></require>\r\n  \r\n  <nav-bar router.bind=\"router\"></nav-bar>\r\n\r\n  <div class=\"page-host\">\r\n    <router-view></router-view>\r\n    <app-console></app-console>\r\n  </div>\r\n</template>\r\n"; });
 define('text!styles.css', ['module'], function(module) { module.exports = "body {\r\n  margin: 0;\r\n}\r\n\r\n.splash {\r\n  text-align: center;\r\n  margin: 10% 0 0 0;\r\n  box-sizing: border-box;\r\n}\r\n\r\n.splash .message {\r\n  font-size: 72px;\r\n  line-height: 72px;\r\n  text-shadow: rgba(0, 0, 0, 0.5) 0 0 15px;\r\n  text-transform: uppercase;\r\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\r\n}\r\n\r\n.splash .fa-spinner {\r\n  text-align: center;\r\n  display: inline-block;\r\n  font-size: 72px;\r\n  margin-top: 50px;\r\n}\r\n\r\n.page-host {\r\n  position: absolute;\r\n  left: 0;\r\n  right: 0;\r\n  top: 50px;\r\n  bottom: 0;\r\n  overflow-x: hidden;\r\n  overflow-y: auto;\r\n}\r\n\r\n@media print {\r\n  .page-host {\r\n    position: absolute;\r\n    left: 10px;\r\n    right: 0;\r\n    top: 50px;\r\n    bottom: 0;\r\n    overflow-y: inherit;\r\n    overflow-x: inherit;\r\n  }\r\n}\r\n\r\nsection {\r\n  margin: 0 20px;\r\n}\r\n\r\n.navbar-nav li.loader {\r\n  margin: 12px 24px 0 6px;\r\n}\r\n\r\n.pictureDetail {\r\n  max-width: 425px;\r\n}\r\n\r\n/* animate page transitions */\r\nsection.au-enter-active {\r\n  -webkit-animation: fadeInRight 1s;\r\n  animation: fadeInRight 1s;\r\n}\r\n\r\ndiv.au-stagger {\r\n  /* 50ms will be applied between each successive enter operation */\r\n  -webkit-animation-delay: 50ms;\r\n  animation-delay: 50ms;\r\n}\r\n\r\n.card-container.au-enter {\r\n  opacity: 0 !important;\r\n}\r\n\r\n.card-container.au-enter-active {\r\n  -webkit-animation: fadeIn 2s;\r\n  animation: fadeIn 2s;\r\n}\r\n\r\n.card {\r\n  overflow: hidden;\r\n  position: relative;\r\n  border: 1px solid #CCC;\r\n  border-radius: 8px;\r\n  text-align: center;\r\n  padding: 0;\r\n  background-color: #337ab7;\r\n  color: rgb(136, 172, 217);\r\n  margin-bottom: 32px;\r\n  box-shadow: 0 0 5px rgba(0, 0, 0, .5);\r\n}\r\n\r\n.card .content {\r\n  margin-top: 10px;\r\n}\r\n\r\n.card .content .name {\r\n  color: white;\r\n  text-shadow: 0 0 6px rgba(0, 0, 0, .5);\r\n  font-size: 18px;\r\n}\r\n\r\n.card .header-bg {\r\n  /* This stretches the canvas across the entire hero unit */\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 70px;\r\n  border-bottom: 1px #FFF solid;\r\n  border-radius: 6px 6px 0 0;\r\n}\r\n\r\n.card .avatar {\r\n  position: relative;\r\n  margin-top: 15px;\r\n  z-index: 100;\r\n}\r\n\r\n.card .avatar img {\r\n  width: 100px;\r\n  height: 100px;\r\n  -webkit-border-radius: 50%;\r\n  -moz-border-radius: 50%;\r\n  border-radius: 50%;\r\n  border: 2px #FFF solid;\r\n}\r\n\r\n/* animation definitions */\r\n@-webkit-keyframes fadeInRight {\r\n  0% {\r\n    opacity: 0;\r\n    -webkit-transform: translate3d(100%, 0, 0);\r\n    transform: translate3d(100%, 0, 0)\r\n  }\r\n  100% {\r\n    opacity: 1;\r\n    -webkit-transform: none;\r\n    transform: none\r\n  }\r\n}\r\n\r\n@keyframes fadeInRight {\r\n  0% {\r\n    opacity: 0;\r\n    -webkit-transform: translate3d(100%, 0, 0);\r\n    -ms-transform: translate3d(100%, 0, 0);\r\n    transform: translate3d(100%, 0, 0)\r\n  }\r\n  100% {\r\n    opacity: 1;\r\n    -webkit-transform: none;\r\n    -ms-transform: none;\r\n    transform: none\r\n  }\r\n}\r\n\r\n@-webkit-keyframes fadeIn {\r\n  0% {\r\n    opacity: 0;\r\n  }\r\n  100% {\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n@keyframes fadeIn {\r\n  0% {\r\n    opacity: 0;\r\n  }\r\n  100% {\r\n    opacity: 1;\r\n  }\r\n}\r\n"; });
 define('text!child-router.html', ['module'], function(module) { module.exports = "<template>\r\n  <section class=\"au-animate\">\r\n    <h2>${heading}</h2>\r\n    <div>\r\n      <div class=\"col-md-2\">\r\n        <ul class=\"well nav nav-pills nav-stacked\">\r\n          <li repeat.for=\"row of router.navigation\" class=\"${row.isActive ? 'active' : ''}\">\r\n            <a href.bind=\"row.href\">${row.title}</a>\r\n          </li>\r\n        </ul>\r\n      </div>\r\n      <div class=\"col-md-10\" style=\"padding: 0\">\r\n        <router-view></router-view>\r\n      </div>\r\n    </div>\r\n  </section>\r\n</template>\r\n"; });
+define('text!cli-introitus.html', ['module'], function(module) { module.exports = "<template>\r\n  <section class=\"au-animate\">\r\n    <h2>Cli introitus - an introduction to the aurelia plugin aurelia-app-cli</h2>\r\n    <h2>A plugin for encapsulating a command line interface in your aurelia SPA in minutes</h2>\r\n<ul>  \r\n<li> Start with typing help in the command window. </li>\r\n\r\n<li> Type now Sum 1 2. You'll see that this operation takes 2 seconds, indeed this is done delibarately for 'expositional reaons'</lip>\r\n\r\n<li> Try now key up key down to browse in the command history and select again the sum operation, click enter fast in such a way you can see that commands are executed in parallel</li>\r\n\r\n<li> Type CLS and the command window will be cleared</li>\r\n<li> Type now GitHubUserInfo LucClaesen and a rest call to github is executed for retrieving a profile pic </li>\r\n<li> Type now GitHubUserInfo paulvanbladel </li>\r\n\r\n</ul>\r\n\r\nmore info on <a  href=https://github.com/paulvanbladel/aurelia-app-cli>github</a>  \r\n\r\n</section>\r\n</template>"; });
 define('text!nav-bar.html', ['module'], function(module) { module.exports = "<template bindable=\"router\">\r\n  <nav class=\"navbar navbar-default navbar-fixed-top\" role=\"navigation\">\r\n    <div class=\"navbar-header\">\r\n      <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#skeleton-navigation-navbar-collapse\">\r\n        <span class=\"sr-only\">Toggle Navigation</span>\r\n        <span class=\"icon-bar\"></span>\r\n        <span class=\"icon-bar\"></span>\r\n        <span class=\"icon-bar\"></span>\r\n      </button>\r\n      <a class=\"navbar-brand\" href=\"#\">\r\n        <i class=\"fa fa-home\"></i>\r\n        <span>${router.title}</span>\r\n      </a>\r\n    </div>\r\n\r\n    <div class=\"collapse navbar-collapse\" id=\"skeleton-navigation-navbar-collapse\">\r\n      <ul class=\"nav navbar-nav\">\r\n        <li repeat.for=\"row of router.navigation\" class=\"${row.isActive ? 'active' : ''}\">\r\n          <a data-toggle=\"collapse\" data-target=\"#skeleton-navigation-navbar-collapse.in\" href.bind=\"row.href\">${row.title}</a>\r\n        </li>\r\n      </ul>\r\n\r\n      <ul class=\"nav navbar-nav navbar-right\">\r\n        <li class=\"loader\" if.bind=\"router.isNavigating\">\r\n          <i class=\"fa fa-spinner fa-spin fa-2x\"></i>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n  </nav>\r\n</template>\r\n"; });
-define('text!users.html', ['module'], function(module) { module.exports = "<template>\r\n  <require from=\"./blur-image\"></require>\r\n\r\n  <section class=\"au-animate\">\r\n    <h2>${heading}</h2>\r\n    <div class=\"row au-stagger\">\r\n      <div class=\"col-sm-6 col-md-3 card-container au-animate\" repeat.for=\"user of users\">\r\n        <div class=\"card\">\r\n          <canvas class=\"header-bg\" width=\"250\" height=\"70\" blur-image.bind=\"image\"></canvas>\r\n          <div class=\"avatar\">\r\n            <img src.bind=\"user.avatar_url\" crossorigin ref=\"image\"/>\r\n          </div>\r\n          <div class=\"content\">\r\n            <p class=\"name\">${user.login}</p>\r\n            <p><a target=\"_blank\" class=\"btn btn-default\" href.bind=\"user.html_url\">Contact</a></p>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </section>\r\n</template>\r\n"; });
 define('text!welcome.html', ['module'], function(module) { module.exports = "<template>\r\n  <section class=\"au-animate\">\r\n    <h2>${heading}</h2>\r\n    <form role=\"form\" submit.delegate=\"submit()\">\r\n      <div class=\"form-group\">\r\n        <label for=\"fn\">First Name</label>\r\n        <input type=\"text\" value.bind=\"firstName\" class=\"form-control\" id=\"fn\" placeholder=\"first name\">\r\n      </div>\r\n      <div class=\"form-group\">\r\n        <label for=\"ln\">Last Name</label>\r\n        <input type=\"text\" value.bind=\"lastName\" class=\"form-control\" id=\"ln\" placeholder=\"last name\">\r\n      </div>\r\n      <div class=\"form-group\">\r\n        <label>Full Name</label>\r\n        <p class=\"help-block\">${fullName | upper}</p>\r\n      </div>\r\n      <button type=\"submit\" class=\"btn btn-default\">Submit</button>\r\n    </form>\r\n  </section>\r\n</template>\r\n"; });
 //# sourceMappingURL=app-bundle.js.map
