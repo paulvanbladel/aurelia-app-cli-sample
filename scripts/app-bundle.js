@@ -347,21 +347,21 @@ define('child-router',['exports'], function (exports) {
   }();
 });
 define('cli-intro',["exports"], function (exports) {
-    "use strict";
+  "use strict";
 
-    Object.defineProperty(exports, "__esModule", {
-        value: true
-    });
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
 
-    function _classCallCheck(instance, Constructor) {
-        if (!(instance instanceof Constructor)) {
-            throw new TypeError("Cannot call a class as a function");
-        }
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
     }
+  }
 
-    var CliIntro = exports.CliIntro = function CliIntro() {
-        _classCallCheck(this, CliIntro);
-    };
+  var CliIntro = exports.CliIntro = function CliIntro() {
+    _classCallCheck(this, CliIntro);
+  };
 });
 define('environment',["exports"], function (exports) {
   "use strict";
@@ -508,101 +508,100 @@ define('welcome',['exports'], function (exports) {
     return UpperValueConverter;
   }();
 });
-define('Commands/echo-me',["exports"], function (exports) {
-    "use strict";
+define('Commands/echo-me',['exports'], function (exports) {
+  'use strict';
 
-    Object.defineProperty(exports, "__esModule", {
-        value: true
-    });
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
 
-    function _classCallCheck(instance, Constructor) {
-        if (!(instance instanceof Constructor)) {
-            throw new TypeError("Cannot call a class as a function");
-        }
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  var EchoMe = exports.EchoMe = function () {
+    function EchoMe() {
+      _classCallCheck(this, EchoMe);
     }
 
-    var EchoMe = exports.EchoMe = function () {
-        function EchoMe() {
-            _classCallCheck(this, EchoMe);
-        }
+    EchoMe.prototype.resolveCommandLineArgs = function resolveCommandLineArgs(args) {
+      this.input = args[1];
+    };
 
-        EchoMe.prototype.ResolveCommandLineArgs = function ResolveCommandLineArgs(args) {
-            this.input = args[1];
-        };
+    EchoMe.prototype.updateAppCommand = function updateAppCommand() {};
 
-        EchoMe.prototype.UpdateAppCommand = function UpdateAppCommand() {};
+    EchoMe.prototype.help = function help() {
+      return 'echoes some text';
+    };
 
-        EchoMe.prototype.help = function help() {
-            return "echoes some text";
-        };
+    EchoMe.prototype.execute = function execute() {
+      var _this = this;
 
-        EchoMe.prototype.Execute = function Execute() {
-            var _this = this;
+      return new Promise(function (resolve, reject) {
+        setTimeout(function () {
 
-            return new Promise(function (resolve, reject) {
-                setTimeout(function () {
+          if (_this.input === 'xxx') {
+            reject('we are simulating an error here...');
+          }
+          var returnValue = 'response from promise for ' + String.fromCharCode(13) + _this.input;
+          resolve(returnValue);
+        }, 2000);
+      });
+    };
 
-                    if (_this.input === "xxx") {
-                        reject("we are simulating an error here...");
-                    }
-                    var returnValue = "response from promise for " + String.fromCharCode(13) + _this.input;
-                    resolve(returnValue);
-                }, 2000);
-            });
-        };
-
-        return EchoMe;
-    }();
+    return EchoMe;
+  }();
 });
 define('Commands/github-user-info',['exports', 'aurelia-framework', 'aurelia-fetch-client'], function (exports, _aureliaFramework, _aureliaFetchClient) {
-    'use strict';
+  'use strict';
 
-    Object.defineProperty(exports, "__esModule", {
-        value: true
-    });
-    exports.GitHubUserInfo = undefined;
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.GitHubUserInfo = undefined;
 
-    function _classCallCheck(instance, Constructor) {
-        if (!(instance instanceof Constructor)) {
-            throw new TypeError("Cannot call a class as a function");
-        }
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  var _dec, _class;
+
+  var GitHubUserInfo = exports.GitHubUserInfo = (_dec = (0, _aureliaFramework.inject)(_aureliaFetchClient.HttpClient), _dec(_class = function () {
+    function GitHubUserInfo(http) {
+      _classCallCheck(this, GitHubUserInfo);
+
+      this.http = http;
     }
 
-    var _dec, _class;
+    GitHubUserInfo.prototype.help = function help() {
+      return 'gets github user profile picture based on github user name';
+    };
 
-    var GitHubUserInfo = exports.GitHubUserInfo = (_dec = (0, _aureliaFramework.inject)(_aureliaFetchClient.HttpClient), _dec(_class = function () {
-        function GitHubUserInfo(http) {
-            _classCallCheck(this, GitHubUserInfo);
+    GitHubUserInfo.prototype.resolveCommandLineArgs = function resolveCommandLineArgs(args) {
+      this.username = args[1];
+    };
 
-            this.http = http;
+    GitHubUserInfo.prototype.updateAppCommand = function updateAppCommand(command) {
+      command.outputType = 'html';
+    };
+
+    GitHubUserInfo.prototype.execute = function execute() {
+      return this.http.fetch('https://api.github.com/users/' + this.username).then(function (response) {
+        return response.json();
+      }).then(function (user) {
+        if (user.login === undefined) {
+          throw user.message;
         }
+        return '<img  src=' + user.avatar_url + '></img>';
+      });
+    };
 
-        GitHubUserInfo.prototype.help = function help() {
-            return "gets github user profile picture based on github user name";
-        };
-
-        GitHubUserInfo.prototype.ResolveCommandLineArgs = function ResolveCommandLineArgs(args) {
-            this.username = args[1];
-        };
-
-        GitHubUserInfo.prototype.UpdateAppCommand = function UpdateAppCommand(command) {
-            command.outputType = "html";
-        };
-
-        GitHubUserInfo.prototype.Execute = function Execute() {
-            debugger;
-            return this.http.fetch('https://api.github.com/users/' + this.username).then(function (response) {
-                return response.json();
-            }).then(function (user) {
-                if (user.login === undefined) {
-                    throw user.message;
-                }
-                return '<img  src=' + user.avatar_url + '></img>';
-            });
-        };
-
-        return GitHubUserInfo;
-    }()) || _class);
+    return GitHubUserInfo;
+  }()) || _class);
 });
 define('Commands/index',['exports', './echo-me', './Sum', './github-user-info'], function (exports, _echoMe, _Sum, _githubUserInfo) {
   'use strict';
@@ -629,54 +628,54 @@ define('Commands/index',['exports', './echo-me', './Sum', './github-user-info'],
     }
   });
 });
-define('Commands/Sum',["exports"], function (exports) {
-    "use strict";
+define('Commands/Sum',['exports'], function (exports) {
+  'use strict';
 
-    Object.defineProperty(exports, "__esModule", {
-        value: true
-    });
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
 
-    function _classCallCheck(instance, Constructor) {
-        if (!(instance instanceof Constructor)) {
-            throw new TypeError("Cannot call a class as a function");
-        }
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  var Sum = exports.Sum = function () {
+    function Sum() {
+      _classCallCheck(this, Sum);
     }
 
-    var Sum = exports.Sum = function () {
-        function Sum() {
-            _classCallCheck(this, Sum);
-        }
-
-        Sum.prototype.ResolveCommandLineArgs = function ResolveCommandLineArgs(args) {
-            this.x = Number(args[1]);
-            this.y = Number(args[2]);
+    Sum.prototype.resolveCommandLineArgs = function resolveCommandLineArgs(args) {
+      this.x = Number(args[1]);
+      this.y = Number(args[2]);
 
 
-            this.ValidateInputParameters();
-        };
+      this.validateInputParameters();
+    };
 
-        Sum.prototype.ValidateInputParameters = function ValidateInputParameters() {};
+    Sum.prototype.validateInputParameters = function validateInputParameters() {};
 
-        Sum.prototype.UpdateAppCommand = function UpdateAppCommand() {};
+    Sum.prototype.updateAppCommand = function updateAppCommand() {};
 
-        Sum.prototype.help = function help() {
-            return "adds two integers";
-        };
+    Sum.prototype.help = function help() {
+      return 'adds two integers';
+    };
 
-        Sum.prototype.Execute = function Execute() {
-            var _this = this;
+    Sum.prototype.execute = function execute() {
+      var _this = this;
 
-            return new Promise(function (resolve, reject) {
-                setTimeout(function () {
+      return new Promise(function (resolve, reject) {
+        setTimeout(function () {
 
-                    var returnValue = (_this.x + _this.y).toString();
-                    resolve(returnValue);
-                }, 2000);
-            });
-        };
+          var returnValue = (_this.x + _this.y).toString();
+          resolve(returnValue);
+        }, 2000);
+      });
+    };
 
-        return Sum;
-    }();
+    return Sum;
+  }();
 });
 define('resources/index',["exports"], function (exports) {
   "use strict";
